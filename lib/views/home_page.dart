@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_inc/views/manager_homepage.dart';
 import 'package:project_inc/views/onboarding_page.dart';
 
 class Home extends StatefulWidget {
@@ -116,7 +117,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OnboardingScreen(),
+                    builder: (context) => ManagerHomePage(),
                   ),
                 );
               },

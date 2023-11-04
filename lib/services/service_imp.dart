@@ -89,8 +89,7 @@ class ServiceImp implements Services {
     return list.toBuiltList()[0];
   }
 
-  Future<String> addHR(
-      String id, String phoneno, String name, String hrid) async {
+  Future<String> addHR(String phoneno, String name) async {
     final feeds = await FirebaseFirestore.instance.collection('hrs').doc();
     Hr newFeed = Hr((b) => b
       ..id = feeds.id
@@ -219,7 +218,7 @@ class ServiceImp implements Services {
 
   Future<BuiltList<Hr>> getHrs() async {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
-        await FirebaseFirestore.instance.collection('hr').get();
+        await FirebaseFirestore.instance.collection('hrs').get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;
     List<Hr> list = [];
