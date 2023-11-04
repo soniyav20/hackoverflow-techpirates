@@ -119,7 +119,7 @@ class ServiceImp implements Services {
       ..education.percent = 0.0
       ..fathername = "--"
       ..mothername = "--"
-      ..dob = DateTime.now()
+      ..dob = "--"
       ..adhar = "--"
       ..contacts.phoneno = "--"
       ..contacts.name = "--"
@@ -282,7 +282,7 @@ class ServiceImp implements Services {
       ..hrid = hrid
       ..empid = empid
       ..message = message
-      // ..time = DateTime.now()
+      ..time = DateTime.now().toString()
       ..isempSender = isemp);
     feeds.set(newFeed.toJson());
   }

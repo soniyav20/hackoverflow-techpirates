@@ -77,7 +77,7 @@ class _$EmployeeSerializer implements StructuredSerializer<Employee> {
       result
         ..add('dob')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
+            specifiedType: const FullType(String)));
     }
     value = object.adhar;
     if (value != null) {
@@ -156,7 +156,7 @@ class _$EmployeeSerializer implements StructuredSerializer<Employee> {
           break;
         case 'dob':
           result.dob = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'adhar':
           result.adhar = serializers.deserialize(value,
@@ -200,7 +200,7 @@ class _$Employee extends Employee {
   @override
   final String? mothername;
   @override
-  final DateTime? dob;
+  final String? dob;
   @override
   final String? adhar;
   @override
@@ -346,9 +346,9 @@ class EmployeeBuilder implements Builder<Employee, EmployeeBuilder> {
   String? get mothername => _$this._mothername;
   set mothername(String? mothername) => _$this._mothername = mothername;
 
-  DateTime? _dob;
-  DateTime? get dob => _$this._dob;
-  set dob(DateTime? dob) => _$this._dob = dob;
+  String? _dob;
+  String? get dob => _$this._dob;
+  set dob(String? dob) => _$this._dob = dob;
 
   String? _adhar;
   String? get adhar => _$this._adhar;

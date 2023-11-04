@@ -4,16 +4,19 @@ import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
+class HRChat extends StatefulWidget {
+  final String empid;
+  const HRChat({Key? key, required this.empid}) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<HRChat> createState() => _HRChatState();
 }
 
-class _ChatState extends State<Chat> {
+class _HRChatState extends State<HRChat> {
   Future<void> method() async {
-    hrid = context.read<MyModel>().state.emp?.hrid ?? '1111';
+    empid = widget.empid;
+    empid = '1111';
+    hrid = '1111';
     await context.read<MyModel>().getMessages();
     setState(() {});
   }
@@ -55,20 +58,20 @@ class _ChatState extends State<Chat> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.fromLTRB(
-                          list[index].isempSender ? 100 : 0,
+                          !list[index].isempSender ? 100 : 0,
                           8,
-                          list[index].isempSender ? 0 : 100,
+                          !list[index].isempSender ? 0 : 100,
                           8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: list[index].isempSender
+                          borderRadius: !list[index].isempSender
                               ? BorderRadius.horizontal(
                                   left: Radius.circular(30),
                                 )
                               : BorderRadius.horizontal(
                                   right: Radius.circular(30),
                                 ),
-                          color: !list[index].isempSender
+                          color: list[index].isempSender
                               ? Colors.grey
                               : Color.fromRGBO(53, 85, 235, 1),
                         ),
@@ -122,7 +125,7 @@ class _ChatState extends State<Chat> {
             IconButton(
                 onPressed: () async {
                   ServiceImp imp = new ServiceImp();
-                  await imp.addMessage('1111', '1111', true, message.text);
+                  await imp.addMessage(hrid, empid, false, message.text);
                   await context.read<MyModel>().getMessages();
                   message.clear();
 
