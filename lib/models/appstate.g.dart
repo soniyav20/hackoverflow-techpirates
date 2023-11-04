@@ -17,21 +17,45 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
   @override
   Iterable<Object?> serialize(Serializers serializers, Appstate object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'emp',
-      serializers.serialize(object.emp,
-          specifiedType: const FullType(Employee)),
-      'hr',
-      serializers.serialize(object.hr, specifiedType: const FullType(Hr)),
-      'employees',
-      serializers.serialize(object.employees,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(Employee)])),
-      'hrs',
-      serializers.serialize(object.hrs,
-          specifiedType: const FullType(BuiltList, const [const FullType(Hr)])),
-    ];
-
+    final result = <Object?>[];
+    Object? value;
+    value = object.emp;
+    if (value != null) {
+      result
+        ..add('emp')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(Employee)));
+    }
+    value = object.hr;
+    if (value != null) {
+      result
+        ..add('hr')
+        ..add(serializers.serialize(value, specifiedType: const FullType(Hr)));
+    }
+    value = object.employees;
+    if (value != null) {
+      result
+        ..add('employees')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Employee)])));
+    }
+    value = object.hrs;
+    if (value != null) {
+      result
+        ..add('hrs')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Hr)])));
+    }
+    value = object.messages;
+    if (value != null) {
+      result
+        ..add('messages')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Messages)])));
+    }
     return result;
   }
 
@@ -66,6 +90,12 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
                       const FullType(BuiltList, const [const FullType(Hr)]))!
               as BuiltList<Object?>);
           break;
+        case 'messages':
+          result.messages.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Messages)]))!
+              as BuiltList<Object?>);
+          break;
       }
     }
 
@@ -75,28 +105,21 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
 
 class _$Appstate extends Appstate {
   @override
-  final Employee emp;
+  final Employee? emp;
   @override
-  final Hr hr;
+  final Hr? hr;
   @override
-  final BuiltList<Employee> employees;
+  final BuiltList<Employee>? employees;
   @override
-  final BuiltList<Hr> hrs;
+  final BuiltList<Hr>? hrs;
+  @override
+  final BuiltList<Messages>? messages;
 
   factory _$Appstate([void Function(AppstateBuilder)? updates]) =>
       (new AppstateBuilder()..update(updates))._build();
 
-  _$Appstate._(
-      {required this.emp,
-      required this.hr,
-      required this.employees,
-      required this.hrs})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(emp, r'Appstate', 'emp');
-    BuiltValueNullFieldError.checkNotNull(hr, r'Appstate', 'hr');
-    BuiltValueNullFieldError.checkNotNull(employees, r'Appstate', 'employees');
-    BuiltValueNullFieldError.checkNotNull(hrs, r'Appstate', 'hrs');
-  }
+  _$Appstate._({this.emp, this.hr, this.employees, this.hrs, this.messages})
+      : super._();
 
   @override
   Appstate rebuild(void Function(AppstateBuilder) updates) =>
@@ -112,7 +135,8 @@ class _$Appstate extends Appstate {
         emp == other.emp &&
         hr == other.hr &&
         employees == other.employees &&
-        hrs == other.hrs;
+        hrs == other.hrs &&
+        messages == other.messages;
   }
 
   @override
@@ -122,6 +146,7 @@ class _$Appstate extends Appstate {
     _$hash = $jc(_$hash, hr.hashCode);
     _$hash = $jc(_$hash, employees.hashCode);
     _$hash = $jc(_$hash, hrs.hashCode);
+    _$hash = $jc(_$hash, messages.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -132,7 +157,8 @@ class _$Appstate extends Appstate {
           ..add('emp', emp)
           ..add('hr', hr)
           ..add('employees', employees)
-          ..add('hrs', hrs))
+          ..add('hrs', hrs)
+          ..add('messages', messages))
         .toString();
   }
 }
@@ -158,15 +184,21 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
   ListBuilder<Hr> get hrs => _$this._hrs ??= new ListBuilder<Hr>();
   set hrs(ListBuilder<Hr>? hrs) => _$this._hrs = hrs;
 
+  ListBuilder<Messages>? _messages;
+  ListBuilder<Messages> get messages =>
+      _$this._messages ??= new ListBuilder<Messages>();
+  set messages(ListBuilder<Messages>? messages) => _$this._messages = messages;
+
   AppstateBuilder();
 
   AppstateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _emp = $v.emp.toBuilder();
-      _hr = $v.hr.toBuilder();
-      _employees = $v.employees.toBuilder();
-      _hrs = $v.hrs.toBuilder();
+      _emp = $v.emp?.toBuilder();
+      _hr = $v.hr?.toBuilder();
+      _employees = $v.employees?.toBuilder();
+      _hrs = $v.hrs?.toBuilder();
+      _messages = $v.messages?.toBuilder();
       _$v = null;
     }
     return this;
@@ -191,21 +223,24 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
     try {
       _$result = _$v ??
           new _$Appstate._(
-              emp: emp.build(),
-              hr: hr.build(),
-              employees: employees.build(),
-              hrs: hrs.build());
+              emp: _emp?.build(),
+              hr: _hr?.build(),
+              employees: _employees?.build(),
+              hrs: _hrs?.build(),
+              messages: _messages?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'emp';
-        emp.build();
+        _emp?.build();
         _$failedField = 'hr';
-        hr.build();
+        _hr?.build();
         _$failedField = 'employees';
-        employees.build();
+        _employees?.build();
         _$failedField = 'hrs';
-        hrs.build();
+        _hrs?.build();
+        _$failedField = 'messages';
+        _messages?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Appstate', _$failedField, e.toString());

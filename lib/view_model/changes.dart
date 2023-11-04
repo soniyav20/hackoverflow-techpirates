@@ -4,6 +4,7 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:project_inc/models/appstate.dart';
 import 'package:project_inc/models/employee.dart';
 import 'package:project_inc/models/hr.dart';
+import 'package:project_inc/models/messages.dart';
 import 'package:project_inc/services/service_imp.dart';
 
 class Changes extends StatelessWidget {
@@ -40,6 +41,11 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
   Future<void> getEmp() async {
     Employee emps = await imp.getEmpDetails();
     state = state.rebuild((p0) => p0.emp = emps.toBuilder());
+  }
+
+  Future<void> getMessages() async {
+    BuiltList<Messages> emps = await imp.getMessages(hrid, empid);
+    state = state.rebuild((p0) => p0.messages = emps.toBuilder());
   }
 
   Future<void> getHr() async {

@@ -21,7 +21,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(Employee)]),
           () => new ListBuilder<Employee>())
       ..addBuilderFactory(const FullType(BuiltList, const [const FullType(Hr)]),
-          () => new ListBuilder<Hr>()))
+          () => new ListBuilder<Hr>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Messages)]),
+          () => new ListBuilder<Messages>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

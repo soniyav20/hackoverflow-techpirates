@@ -29,9 +29,6 @@ class _$MessagesSerializer implements StructuredSerializer<Messages> {
       'isempSender',
       serializers.serialize(object.isempSender,
           specifiedType: const FullType(bool)),
-      'time',
-      serializers.serialize(object.time,
-          specifiedType: const FullType(DateTime)),
     ];
 
     return result;
@@ -64,10 +61,6 @@ class _$MessagesSerializer implements StructuredSerializer<Messages> {
           result.isempSender = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
-        case 'time':
-          result.time = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime))! as DateTime;
-          break;
       }
     }
 
@@ -84,8 +77,6 @@ class _$Messages extends Messages {
   final String message;
   @override
   final bool isempSender;
-  @override
-  final DateTime time;
 
   factory _$Messages([void Function(MessagesBuilder)? updates]) =>
       (new MessagesBuilder()..update(updates))._build();
@@ -94,15 +85,13 @@ class _$Messages extends Messages {
       {required this.hrid,
       required this.empid,
       required this.message,
-      required this.isempSender,
-      required this.time})
+      required this.isempSender})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(hrid, r'Messages', 'hrid');
     BuiltValueNullFieldError.checkNotNull(empid, r'Messages', 'empid');
     BuiltValueNullFieldError.checkNotNull(message, r'Messages', 'message');
     BuiltValueNullFieldError.checkNotNull(
         isempSender, r'Messages', 'isempSender');
-    BuiltValueNullFieldError.checkNotNull(time, r'Messages', 'time');
   }
 
   @override
@@ -119,8 +108,7 @@ class _$Messages extends Messages {
         hrid == other.hrid &&
         empid == other.empid &&
         message == other.message &&
-        isempSender == other.isempSender &&
-        time == other.time;
+        isempSender == other.isempSender;
   }
 
   @override
@@ -130,7 +118,6 @@ class _$Messages extends Messages {
     _$hash = $jc(_$hash, empid.hashCode);
     _$hash = $jc(_$hash, message.hashCode);
     _$hash = $jc(_$hash, isempSender.hashCode);
-    _$hash = $jc(_$hash, time.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -141,8 +128,7 @@ class _$Messages extends Messages {
           ..add('hrid', hrid)
           ..add('empid', empid)
           ..add('message', message)
-          ..add('isempSender', isempSender)
-          ..add('time', time))
+          ..add('isempSender', isempSender))
         .toString();
   }
 }
@@ -166,10 +152,6 @@ class MessagesBuilder implements Builder<Messages, MessagesBuilder> {
   bool? get isempSender => _$this._isempSender;
   set isempSender(bool? isempSender) => _$this._isempSender = isempSender;
 
-  DateTime? _time;
-  DateTime? get time => _$this._time;
-  set time(DateTime? time) => _$this._time = time;
-
   MessagesBuilder();
 
   MessagesBuilder get _$this {
@@ -179,7 +161,6 @@ class MessagesBuilder implements Builder<Messages, MessagesBuilder> {
       _empid = $v.empid;
       _message = $v.message;
       _isempSender = $v.isempSender;
-      _time = $v.time;
       _$v = null;
     }
     return this;
@@ -209,9 +190,7 @@ class MessagesBuilder implements Builder<Messages, MessagesBuilder> {
             message: BuiltValueNullFieldError.checkNotNull(
                 message, r'Messages', 'message'),
             isempSender: BuiltValueNullFieldError.checkNotNull(
-                isempSender, r'Messages', 'isempSender'),
-            time: BuiltValueNullFieldError.checkNotNull(
-                time, r'Messages', 'time'));
+                isempSender, r'Messages', 'isempSender'));
     replace(_$result);
     return _$result;
   }

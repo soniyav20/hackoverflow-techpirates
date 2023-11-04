@@ -3,6 +3,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:project_inc/models/employee.dart';
 import 'package:project_inc/models/hr.dart';
+import 'package:project_inc/models/messages.dart';
 import 'package:project_inc/models/serializers.dart';
 
 part 'appstate.g.dart';
@@ -22,8 +23,9 @@ abstract class Appstate implements Built<Appstate, AppstateBuilder> {
 
   static Serializer<Appstate> get serializer => _$appstateSerializer;
 
-  Employee get emp;
-  Hr get hr;
-  BuiltList<Employee> get employees;
-  BuiltList<Hr> get hrs;
+  Employee? get emp;
+  Hr? get hr;
+  BuiltList<Employee>? get employees;
+  BuiltList<Hr>? get hrs;
+  BuiltList<Messages>? get messages;
 }
