@@ -5,6 +5,7 @@ import 'package:project_inc/models/certificates.dart';
 import 'package:project_inc/models/employee.dart';
 import 'package:project_inc/models/hr.dart';
 import 'package:project_inc/models/identity_docs.dart';
+import 'package:project_inc/models/messages.dart';
 import 'package:project_inc/models/tax_docs.dart';
 import 'package:project_inc/services/services.dart';
 
@@ -273,5 +274,34 @@ class ServiceImp implements Services {
       ..userid = empid
       ..doc = link);
     feeds.set(newFeed.toJson());
+  }
+
+  Future<void> addMessage(
+      String hrid, String empid, bool isemp, String message) async {
+    final feeds = await FirebaseFirestore.instance.collection('messages').doc();
+    Messages newFeed = Messages((b) => b
+      ..hrid = hrid
+      ..empid = empid
+      ..message = message
+      ..time = DateTime.now()
+      ..isempSender = isemp);
+    feeds.set(newFeed.toJson());
+  }
+
+  Future<BuiltList<Messages>> getMessages(String hrid, String empid) async {
+    final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+        await FirebaseFirestore.instance
+            .collection('messages')
+            .where('hrid', isEqualTo: hrid.toString())
+            .where('empid', isEqualTo: empid.toString())
+            .orderBy('time', descending: true)
+            .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+        _collectionRef.docs;
+    List<Messages> list = [];
+    snapshot.forEach((element) {
+      list.add(Messages.fromJson(element.data()));
+    });
+    return list.toBuiltList();
   }
 }

@@ -9,13 +9,15 @@ import 'package:project_inc/models/emergency_contact.dart';
 import 'package:project_inc/models/employee.dart';
 import 'package:project_inc/models/hr.dart';
 import 'package:project_inc/models/identity_docs.dart';
+import 'package:project_inc/models/messages.dart';
 import 'package:project_inc/models/tax_docs.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
   // TODO: add the built values that require serialization
-  Address, Appstate, Certificates, Education, EmergencyContact, Employee, Hr,
+  Address, Messages, Appstate, Certificates, Education, EmergencyContact,
+  Employee, Hr,
   IdentityDocs, TaxDocs
 ])
 final Serializers serializers =

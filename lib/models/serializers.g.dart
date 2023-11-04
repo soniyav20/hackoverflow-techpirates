@@ -15,6 +15,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Employee.serializer)
       ..add(Hr.serializer)
       ..add(IdentityDocs.serializer)
+      ..add(Messages.serializer)
       ..add(TaxDocs.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Employee)]),
