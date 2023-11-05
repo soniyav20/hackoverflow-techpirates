@@ -15,8 +15,6 @@ class HRChat extends StatefulWidget {
 class _HRChatState extends State<HRChat> {
   Future<void> method() async {
     empid = widget.empid;
-    empid = '1111';
-    hrid = '1111';
     await context.read<MyModel>().getMessages();
     setState(() {});
   }
@@ -45,7 +43,7 @@ class _HRChatState extends State<HRChat> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Talk to you HR"),
+          title: Text("Talk to you Employee"),
           backgroundColor: Color.fromRGBO(53, 85, 235, 1),
         ),
         body: (list == null || list.isEmpty)

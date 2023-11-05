@@ -1,7 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
-import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
+import 'package:project_inc/views/employees/emp_details_hr.dart';
+import 'package:project_inc/views/home_page.dart';
 import 'package:project_inc/views/hr_chat.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +15,6 @@ class HRViewEmployee extends StatefulWidget {
 
 class _HRViewEmployeeState extends State<HRViewEmployee> {
   Future<void> method() async {
-    hrid = '12345';
-    empid = '1111';
     await context.read<MyModel>().getEmpList();
     setState(() {});
   }
@@ -41,6 +40,19 @@ class _HRViewEmployeeState extends State<HRViewEmployee> {
       appBar: AppBar(
         title: Text("View Employees"),
         backgroundColor: Color.fromRGBO(53, 85, 235, 1),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Home()));
+              },
+              icon: Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: (list == null || list.isEmpty)
           ? Center(child: Text("Nothing Yet"))
@@ -56,18 +68,35 @@ class _HRViewEmployeeState extends State<HRViewEmployee> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HRChat(
-                              empid: list[index].id,
+                            builder: (context) => EmployeeDetailsPageHR(
+                              empId: list[index].id,
                             ),
                           ),
                         );
                       },
                       child: Card(
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(list[index].name),
-                            Text(list[index].id),
-                            Text(list[index].phoneno)
+                            Column(
+                              children: [
+                                Text(list[index].name),
+                                Text(list[index].id),
+                                Text(list[index].phoneno)
+                              ],
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HRChat(
+                                        empid: list[index].id,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons.chat_bubble))
                           ],
                         ),
                       ),
