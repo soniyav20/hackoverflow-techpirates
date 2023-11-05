@@ -241,14 +241,6 @@ class ServiceImp implements Services {
         .update({"password": password});
   }
 
-  Future<void> addPersonalDoc(String link) async {
-    final feeds = await FirebaseFirestore.instance.collection('pdocs').doc();
-    IdentityDocs newFeed = IdentityDocs((b) => b
-      ..empid = empid
-      ..doc = link);
-    feeds.set(newFeed.toJson());
-  }
-
   Future<void> addPdocs(String link) async {
     final feeds = await FirebaseFirestore.instance.collection('pdocs').doc();
     IdentityDocs newFeed = IdentityDocs((b) => b
@@ -304,4 +296,19 @@ class ServiceImp implements Services {
     });
     return list.toBuiltList();
   }
+
+  // Future<String> getiddoc() async {
+  //   final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+  //   await FirebaseFirestore.instance
+  //       .collection('pdocs')
+  //       .where('id', isEqualTo: hrid.toString())
+  //       .get();
+  //   List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+  //       _collectionRef.docs;
+  //   List<Hr> list = [];
+  //   snapshot.forEach((element) {
+  //     list.add(Hr.fromJson(element.data()));
+  //   });
+  //   return list.toBuiltList()[0];
+  // }
 }

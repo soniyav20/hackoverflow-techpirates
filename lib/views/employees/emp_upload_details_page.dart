@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:project_inc/services/service_imp.dart';
 
 class UploadDocumentsPage extends StatefulWidget {
   @override
@@ -23,13 +25,13 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
       if (pickedFile != null) {
         if (containerIndex == 1) {
           _image1 = File(pickedFile.path);
-          uploadFile(_image1);
+          uploadFile(_image1, 1);
         } else if (containerIndex == 2) {
           _image2 = File(pickedFile.path);
-          uploadFile(_image2);
+          uploadFile(_image2, 2);
         } else if (containerIndex == 3) {
           _image3 = File(pickedFile.path);
-          uploadFile(_image3);
+          uploadFile(_image3, 3);
         }
       } else {
         print('No image selected.');
@@ -37,14 +39,33 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
     });
   }
 
-  Future<void> uploadFile(File? image) async {
+  Future<void> uploadFile(File? image, int i) async {
+    ServiceImp imp = new ServiceImp();
     if (image == null) return;
     final fileName = basename(image.path);
     final destination = 'files/$fileName';
-
     try {
       final ref = firebase_storage.FirebaseStorage.instance.ref(destination);
       await ref.putFile(image);
+      if (i == 1) {
+        String downloadURL = await FirebaseStorage.instance
+            .ref(destination)
+            .child('file/')
+            .getDownloadURL();
+        imp.addPdocs(downloadURL);
+      } else if (i == 2) {
+        String downloadURL = await FirebaseStorage.instance
+            .ref(destination)
+            .child('file/')
+            .getDownloadURL();
+        imp.addTax(downloadURL);
+      } else if (i == 3) {
+        String downloadURL = await FirebaseStorage.instance
+            .ref(destination)
+            .child('file/')
+            .getDownloadURL();
+        imp.addcertificates(downloadURL);
+      }
     } catch (e) {
       print('Error occurred during upload: $e');
     }
