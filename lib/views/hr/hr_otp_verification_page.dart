@@ -37,7 +37,7 @@ class _HrOtpVerificationPageState extends State<HrOtpVerificationPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('hr OTP Verification'),
+        title: Text('HR OTP Verification'),
         backgroundColor: Color.fromRGBO(53, 85, 235, 1),
       ),
       body: Padding(
