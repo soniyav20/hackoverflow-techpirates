@@ -3,6 +3,8 @@ import 'package:project_inc/views/hr_view_employees.dart';
 import 'package:project_inc/views/manager_homepage.dart';
 import 'package:project_inc/views/onboarding_page.dart';
 
+import 'hr/hr_login_page.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -83,7 +85,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HRViewEmployee(),
+                    builder: (context) => HrLoginPage(),
                   ),
                 );
               },

@@ -86,7 +86,6 @@ class ServiceImp implements Services {
       list.add(Employee.fromJson(element.data()));
     });
     print(list.toBuiltList()[0]);
-
     return list.toBuiltList()[0];
   }
 
@@ -184,7 +183,6 @@ class ServiceImp implements Services {
       return false;
     } else {
       hrid = id;
-
       return true;
     }
   }
