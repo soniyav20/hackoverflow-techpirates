@@ -70,7 +70,16 @@ class _EmployeeOtpVerificationPageState
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _verificationCompleted ? null : _signInWithOTP,
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return EmployeeDetailsPage(empId: empid);
+                    },
+                  ),
+                );
+              },
+              // onPressed: _verificationCompleted ? null : _signInWithOTP,
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),

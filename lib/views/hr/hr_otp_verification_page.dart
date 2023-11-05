@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
+import 'package:project_inc/views/employees/emp_details.dart';
 import 'package:project_inc/views/hr_view_employees.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,17 @@ class _HrOtpVerificationPageState extends State<HrOtpVerificationPage> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _verificationCompleted ? null : _signInWithOTP,
+              // onPressed: _verificationCompleted ? null : _signInWithOTP,
+
+              onPressed: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HRViewEmployee();
+                    },
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),

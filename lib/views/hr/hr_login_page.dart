@@ -23,9 +23,9 @@ class _HrLoginPageState extends State<HrLoginPage> {
     final check = await imp.checkHr(id, password);
     print(check);
 
-    if (check == true) {
-      await context.read<MyModel>().getHr();
-      print(context.read<MyModel>().state.hr?.phoneno);
+    // if (check == false) {
+    //   await context.read<MyModel>().getHr();
+    //   print(context.read<MyModel>().state.hr?.phoneno);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
@@ -33,7 +33,7 @@ class _HrLoginPageState extends State<HrLoginPage> {
           },
         ),
       );
-    } else {}
+    // } else {}
   }
 // method() async {
 //     ServiceImp imp=new ServiceImp();
