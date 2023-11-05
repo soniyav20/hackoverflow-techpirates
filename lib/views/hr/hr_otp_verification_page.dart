@@ -6,18 +6,15 @@ import 'package:project_inc/views/hr_view_employees.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/hr.dart';
-import '../hr_view_employees.dart';
 
 class HrOtpVerificationPage extends StatefulWidget {
   const HrOtpVerificationPage({Key? key}) : super(key: key);
 
   @override
-  _HrOtpVerificationPageState createState() =>
-      _HrOtpVerificationPageState();
+  _HrOtpVerificationPageState createState() => _HrOtpVerificationPageState();
 }
 
-class _HrOtpVerificationPageState
-    extends State<HrOtpVerificationPage> {
+class _HrOtpVerificationPageState extends State<HrOtpVerificationPage> {
   final TextEditingController _otpController = TextEditingController();
   String? _verificationId;
   bool _verificationCompleted = false;
@@ -114,9 +111,11 @@ class _HrOtpVerificationPageState
   }
 
   Future<void> _verifyPhoneNumber() async {
+    await context.read<MyModel>().getHr();
+    print(hrid);
     // Use the phone number obtained in initState
     final String phoneNumber =
-        context.read<MyModel>().state.emp?.phoneno.trim() ?? '';
+        context.read<MyModel>().state.hr?.phoneno.trim() ?? '';
 
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential credential) async {
@@ -166,8 +165,7 @@ class _HrOtpVerificationPageState
       // Navigate to the next page, for example, hrDetailsPage
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-            builder: (context) => HRViewEmployee()),
+        MaterialPageRoute(builder: (context) => HRViewEmployee()),
         (Route<dynamic> route) => false,
       );
     } catch (e) {

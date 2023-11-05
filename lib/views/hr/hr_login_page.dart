@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
+import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/hr/hr_otp_verification_page.dart';
+import 'package:provider/provider.dart';
 
 class HrLoginPage extends StatefulWidget {
   const HrLoginPage({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class _HrLoginPageState extends State<HrLoginPage> {
     print(check);
 
     if (check == true) {
+      await context.read<MyModel>().getHr();
+      print(context.read<MyModel>().state.hr?.phoneno);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
