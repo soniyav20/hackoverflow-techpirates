@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/views/employees/emp_otp_verification_page.dart';
 
-import 'emp_details.dart';
-import 'emp_upload_details_page.dart';
 class EmployeeLoginPage extends StatefulWidget {
   const EmployeeLoginPage({Key? key}) : super(key: key);
 
@@ -13,7 +11,7 @@ class EmployeeLoginPage extends StatefulWidget {
 
 class _EmployeeLoginPageState extends State<EmployeeLoginPage> {
   TextEditingController idController = TextEditingController();
-  ServiceImp imp=new ServiceImp();
+  ServiceImp imp = new ServiceImp();
   TextEditingController passwordController = TextEditingController();
 
   Future<void> _continueButtonPressed() async {
@@ -23,30 +21,29 @@ class _EmployeeLoginPageState extends State<EmployeeLoginPage> {
     final check = await imp.checkEmp(id, password);
     print(check);
 
-    if (check==true) {
+    if (check == true) {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
-            return EmployeeDetailsPage(empId: idController.text,);
+            return EmployeeOtpVerificationPage();
           },
         ),
       );
-    } else {
-
-    }
+    } else {}
   }
 // method() async {
 //     ServiceImp imp=new ServiceImp();
 //    String empp= await  imp.addEmp( "+ 91 9363173016", "Je;;p");
 //    empid=empp;
 // }
-  
+
   @override
   Widget build(BuildContext context) {
     // method();
     return Scaffold(
       appBar: AppBar(
         title: Text('Employee Login'),
+        backgroundColor: Color.fromRGBO(53, 85, 235, 1),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -73,4 +70,3 @@ class _EmployeeLoginPageState extends State<EmployeeLoginPage> {
     );
   }
 }
-

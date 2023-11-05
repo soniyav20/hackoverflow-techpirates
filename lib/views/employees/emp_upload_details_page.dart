@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -81,20 +80,21 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Upload Documents'),
+        backgroundColor: Color.fromRGBO(53, 85, 235, 1),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Identity Proof"),
             GestureDetector(
               onTap: () {
-                _showPicker(context,1);
+                _showPicker(context, 1);
               },
               child: Container(
                 width: 200,
@@ -103,14 +103,16 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
                 child: _image1 != null
                     ? Image.file(_image1!, fit: BoxFit.cover)
                     : Center(
-                  child: Text('Add Image 1', style: TextStyle(color: Colors.white)),
-                ),
+                        child: Text('Add Identity Doc',
+                            style: TextStyle(color: Colors.white)),
+                      ),
               ),
             ),
             SizedBox(height: 20),
+            Text("Tax Proof"),
             GestureDetector(
               onTap: () {
-                _showPicker(context,2);
+                _showPicker(context, 2);
               },
               child: Container(
                 width: 200,
@@ -119,14 +121,16 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
                 child: _image2 != null
                     ? Image.file(_image2!, fit: BoxFit.cover)
                     : Center(
-                  child: Text('Add Image 2', style: TextStyle(color: Colors.white)),
-                ),
+                        child: Text('Add Tax Certificate',
+                            style: TextStyle(color: Colors.white)),
+                      ),
               ),
             ),
             SizedBox(height: 20),
+            Text("Certificate"),
             GestureDetector(
               onTap: () {
-                _showPicker(context,3);
+                _showPicker(context, 3);
               },
               child: Container(
                 width: 200,
@@ -135,8 +139,9 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
                 child: _image3 != null
                     ? Image.file(_image3!, fit: BoxFit.cover)
                     : Center(
-                  child: Text('Add Image 3', style: TextStyle(color: Colors.white)),
-                ),
+                        child: Text('Add Certificate',
+                            style: TextStyle(color: Colors.white)),
+                      ),
               ),
             ),
           ],

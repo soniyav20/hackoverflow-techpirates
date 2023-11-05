@@ -51,7 +51,7 @@ class ServiceImp implements Services {
       double percent,
       String fathername,
       String mothername,
-      DateTime dob,
+      String dob,
       String adhar,
       String emergency) async {
     await FirebaseFirestore.instance.collection('employees').doc(empid).update({
@@ -63,10 +63,7 @@ class ServiceImp implements Services {
       "state": state,
       "pincode": pincode,
       "gender": gender,
-      "education": {
-        "qualification": qualification,
-        "percent": percent
-      },
+      "education": {"qualification": qualification, "percent": percent},
       "fathername": fathername,
       "mothername": mothername,
       "dob": dob,
@@ -88,6 +85,8 @@ class ServiceImp implements Services {
     snapshot.forEach((element) {
       list.add(Employee.fromJson(element.data()));
     });
+    print(list.toBuiltList()[0]);
+
     return list.toBuiltList()[0];
   }
 
@@ -290,6 +289,8 @@ class ServiceImp implements Services {
   }
 
   Future<BuiltList<Messages>> getMessages(String hrid, String empid) async {
+    print(hrid);
+    print(empid);
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('messages')

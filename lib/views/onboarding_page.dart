@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_inc/views/employees/emp_login_page.dart';
 // import 'package:park_qr/Pages/login.dart';
 // import 'package:park_qr/Pages/signup.dart';
 
@@ -216,14 +217,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => SignupPage(
-      //       onClickedSignIn: () {},
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EmployeeLoginPage(),
+        ),
+      );
     }
   }
 

@@ -13,7 +13,9 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   Future<void> method() async {
+    await context.read<MyModel>().getEmp();
     hrid = context.read<MyModel>().state.emp?.hrid ?? '1111';
+    setState(() {});
     await context.read<MyModel>().getMessages();
     setState(() {});
   }
@@ -122,7 +124,7 @@ class _ChatState extends State<Chat> {
             IconButton(
                 onPressed: () async {
                   ServiceImp imp = new ServiceImp();
-                  await imp.addMessage('1111', '1111', true, message.text);
+                  await imp.addMessage(hrid, empid, true, message.text);
                   await context.read<MyModel>().getMessages();
                   message.clear();
 

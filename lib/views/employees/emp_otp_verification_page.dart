@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
+import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/employees/emp_details.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/employee.dart';
 
@@ -13,35 +15,40 @@ class EmployeeOtpVerificationPage extends StatefulWidget {
       _EmployeeOtpVerificationPageState();
 }
 
-class _EmployeeOtpVerificationPageState extends State<EmployeeOtpVerificationPage> {
+class _EmployeeOtpVerificationPageState
+    extends State<EmployeeOtpVerificationPage> {
   final TextEditingController _otpController = TextEditingController();
   String? _verificationId;
   bool _verificationCompleted = false;
   ServiceImp imp = ServiceImp();
-  late String _phoneNumber;
 
   @override
   void initState() {
     super.initState();
     _getPhoneNumberAndSendOTP();
   }
+
   Future<void> _getPhoneNumberAndSendOTP() async {
-    final Employee emp = await imp.getEmpDetails();
-    _phoneNumber = emp.phoneno ?? '';
+    await context.read<MyModel>().getEmp();
+    setState(() {});
     _verifyPhoneNumber();
   }
 
   @override
   Widget build(BuildContext context) {
+    Employee? employee = context.read<MyModel>().state.emp;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Employee OTP Verification'),
+        backgroundColor: Color.fromRGBO(53, 85, 235, 1),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(employee?.phoneno ?? "--"),
             SizedBox(height: 20),
             TextField(
               controller: _otpController,
@@ -80,26 +87,26 @@ class _EmployeeOtpVerificationPageState extends State<EmployeeOtpVerificationPag
               ),
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // imp.signin();
-                // Handle the Sign Up action if needed
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontSize: 16,
-                  // fontWeight: FontWeight bold,
-                ),
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     // imp.signin();
+            //     // Handle the Sign Up action if needed
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.red,
+            //     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //   ),
+            //   child: Text(
+            //     'Sign Up',
+            //     style: TextStyle(
+            //       fontSize: 16,
+            //       // fontWeight: FontWeight bold,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -108,7 +115,8 @@ class _EmployeeOtpVerificationPageState extends State<EmployeeOtpVerificationPag
 
   Future<void> _verifyPhoneNumber() async {
     // Use the phone number obtained in initState
-    final String phoneNumber = _phoneNumber.trim();
+    final String phoneNumber =
+        context.read<MyModel>().state.emp?.phoneno.trim() ?? '';
 
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential credential) async {
@@ -117,13 +125,11 @@ class _EmployeeOtpVerificationPageState extends State<EmployeeOtpVerificationPag
         _verificationCompleted = true;
       });
     };
-    PhoneVerificationFailed verificationFailed =
-        (FirebaseAuthException e) {
+    PhoneVerificationFailed verificationFailed = (FirebaseAuthException e) {
       print('Verification Failed: ${e.message}');
     };
 
-    PhoneCodeSent codeSent =
-        (String verificationId, int? resendToken) {
+    PhoneCodeSent codeSent = (String verificationId, int? resendToken) {
       setState(() {
         _verificationId = verificationId;
       });
@@ -158,11 +164,14 @@ class _EmployeeOtpVerificationPageState extends State<EmployeeOtpVerificationPag
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       // Navigate to the next page, for example, EmployeeDetailsPage
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-        return EmployeeDetailsPage(empId: '');
-      }));
-      } catch (e) {
-        print('Sign-in Failed: $e');
-      }
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EmployeeDetailsPage(empId: empid)),
+        (Route<dynamic> route) => false,
+      );
+    } catch (e) {
+      print('Sign-in Failed: $e');
     }
+  }
 }

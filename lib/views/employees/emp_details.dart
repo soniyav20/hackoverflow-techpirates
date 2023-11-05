@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
+import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/chat_page.dart';
+import 'package:project_inc/views/home_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/employee.dart';
 import 'emp_upload_details_page.dart';
@@ -50,7 +53,7 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
     double percent = double.tryParse(percentController.text) ?? 0.0;
     String fathername = fatherNameController.text;
     String mothername = motherNameController.text;
-    DateTime dob = DateTime.tryParse(dobController.text) ?? DateTime.now();
+    String dob = dobController.text;
     String adhar = adharController.text;
     String emergency = emergencyController.text;
 
@@ -90,10 +93,11 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
   void fetchEmployeeDetails() async {
     try {
       // Fetch the employee details using your service
-      Employee employee = await imp.getEmpDetails();
+      await context.read<MyModel>().getEmp();
+      Employee? employee = context.read<MyModel>().state.emp;
 
       // Populate the text fields with the employee details
-      idController.text = employee.id;
+      idController.text = employee!.id;
       nameController.text = employee.name;
       passwordController.text = employee.password;
       emailController.text = employee.mail ?? '';
@@ -126,6 +130,20 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Employee Details'),
+        backgroundColor: Color.fromRGBO(53, 85, 235, 1),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Home()));
+              },
+              icon: Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: ListView(
         padding: EdgeInsets.all(16.0),
@@ -196,7 +214,8 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          FloatingActionButton(
+          IconButton(
+            color: Color.fromRGBO(53, 85, 235, 1),
             onPressed: () {
               Navigator.push(
                 context,
@@ -204,16 +223,17 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
               );
             },
             tooltip: 'Upload Documents',
-            child: Icon(Icons.upload),
+            icon: Icon(Icons.upload),
           ),
           SizedBox(height: 16),
           FloatingActionButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Chat()), 
+                MaterialPageRoute(builder: (context) => Chat()),
               );
             },
+            backgroundColor: Color.fromRGBO(53, 85, 235, 1),
             tooltip: 'Chat with HR',
             child: Icon(Icons.chat_bubble),
           ),
