@@ -100,7 +100,33 @@ class ServiceImp implements Services {
       ..name = name
       ..phoneno = phoneno);
     feeds.set(newFeed.toJson());
+    final feeds1 =
+    await FirebaseFirestore.instance.collection('employees').doc(feeds.id);
+    Employee newFeed1 = Employee((b) => b
+      ..id = feeds.id
+      ..password = encrypt(name.substring(0, 4) + phoneno.substring(4, 8), encryptionKey)
+      ..name = name
+      ..phoneno = phoneno
+      ..mail = "--"
+      ..address.state = "--"
+      ..address.street = "--"
+      ..address.doorno = "--"
+      ..address.city = "--"
+      ..address.pincode = 00
+      ..gender = "--"
+      ..education.qualification = "--"
+      ..education.percent = 0.0
+      ..fathername = "--"
+      ..mothername = "--"
+      ..dob = "--"
+      ..adhar = "--"
+      ..contacts.phoneno = "--"
+      ..contacts.name = "--"
+      ..contacts.relation = "--"
+      ..hrid = "None");
+    feeds1.set(newFeed1.toJson());
     return feeds.id;
+
   }
 
   Future<String> addEmp(String phoneno, String name) async {
