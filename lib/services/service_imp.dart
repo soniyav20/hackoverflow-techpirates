@@ -63,8 +63,10 @@ class ServiceImp implements Services {
       "state": state,
       "pincode": pincode,
       "gender": gender,
-      "qualification": qualification,
-      "percent": percent,
+      "education": {
+        "qualification": qualification,
+        "percent": percent
+      },
       "fathername": fathername,
       "mothername": mothername,
       "dob": dob,
@@ -101,7 +103,7 @@ class ServiceImp implements Services {
     return feeds.id;
   }
 
-  Future<String> addEmp(String id, String phoneno, String name) async {
+  Future<String> addEmp(String phoneno, String name) async {
     final feeds =
         await FirebaseFirestore.instance.collection('employees').doc();
     Employee newFeed = Employee((b) => b
@@ -120,7 +122,7 @@ class ServiceImp implements Services {
       ..education.percent = 0.0
       ..fathername = "--"
       ..mothername = "--"
-      ..dob = DateTime.now()
+      ..dob = "--"
       ..adhar = "--"
       ..contacts.phoneno = "--"
       ..contacts.name = "--"

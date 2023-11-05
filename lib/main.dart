@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/chat_page.dart';
+import 'package:project_inc/views/employees/emp_login_page.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,7 @@ Future<void> main() async {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Roboto'),
-        home: Chat(),
+        home: EmployeeLoginPage(),
       ),
     ),
   );

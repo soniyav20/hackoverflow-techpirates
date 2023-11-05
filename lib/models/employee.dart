@@ -31,7 +31,7 @@ abstract class Employee implements Built<Employee, EmployeeBuilder> {
   Education? get education;
   String? get fathername;
   String? get mothername;
-  DateTime? get dob;
+  String? get dob;
   String? get adhar;
   EmergencyContact? get contacts;
   String? get hrid;
