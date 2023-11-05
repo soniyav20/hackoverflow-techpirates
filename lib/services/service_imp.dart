@@ -9,6 +9,8 @@ import 'package:project_inc/models/messages.dart';
 import 'package:project_inc/models/tax_docs.dart';
 import 'package:project_inc/services/services.dart';
 
+import '../ciphers/encryptor.dart';
+
 bool loading = false;
 String empid = '';
 String hrid = '';
@@ -67,7 +69,7 @@ class ServiceImp implements Services {
       "fathername": fathername,
       "mothername": mothername,
       "dob": dob,
-      "adhar": adhar,
+      "adhar": encrypt(adhar, encryptionKey),
       "emergency": emergency
     });
   }
@@ -90,10 +92,11 @@ class ServiceImp implements Services {
   }
 
   Future<String> addHR(String phoneno, String name) async {
+    print(name.substring(0, 4) + phoneno.substring(4, 8));
     final feeds = await FirebaseFirestore.instance.collection('hrs').doc();
     Hr newFeed = Hr((b) => b
       ..id = feeds.id
-      ..password = name.substring(0, 4) + phoneno.substring(4, 8)
+      ..password = encrypt(name.substring(0, 4) + phoneno.substring(4, 8), encryptionKey)
       ..name = name
       ..phoneno = phoneno);
     feeds.set(newFeed.toJson());
@@ -105,7 +108,7 @@ class ServiceImp implements Services {
         await FirebaseFirestore.instance.collection('employees').doc();
     Employee newFeed = Employee((b) => b
       ..id = feeds.id
-      ..password = name.substring(0, 4) + phoneno.substring(4, 8)
+      ..password = encrypt(name.substring(0, 4) + phoneno.substring(4, 8), encryptionKey)
       ..name = name
       ..phoneno = phoneno
       ..mail = "--"
@@ -145,11 +148,12 @@ class ServiceImp implements Services {
   }
 
   Future<bool> checkEmp(String id, String pass) async {
+    print(encrypt(pass, encryptionKey));
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('employees')
             .where('id', isEqualTo: id.toString())
-            .where('password', isEqualTo: pass)
+            .where('password', isEqualTo: encrypt(pass, encryptionKey))
             .get();
 
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -171,7 +175,7 @@ class ServiceImp implements Services {
         await FirebaseFirestore.instance
             .collection('hrs')
             .where('id', isEqualTo: id.toString())
-            .where('password', isEqualTo: pass)
+            .where('password', isEqualTo: encrypt(pass, encryptionKey))
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;
@@ -238,7 +242,7 @@ class ServiceImp implements Services {
     await FirebaseFirestore.instance
         .collection('hrs')
         .doc(hrid)
-        .update({"password": password});
+        .update({"password": encrypt(password, encryptionKey)});
   }
 
   Future<void> addPdocs(String link) async {
@@ -272,7 +276,7 @@ class ServiceImp implements Services {
     Messages newFeed = Messages((b) => b
       ..hrid = hrid
       ..empid = empid
-      ..message = message
+      ..message = encrypt(message, encryptionKey)
       ..time = DateTime.now().toString()
       ..isempSender = isemp);
     feeds.set(newFeed.toJson());

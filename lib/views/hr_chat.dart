@@ -4,6 +4,8 @@ import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
+import '../ciphers/encryptor.dart';
+
 class HRChat extends StatefulWidget {
   final String empid;
   const HRChat({Key? key, required this.empid}) : super(key: key);
@@ -78,9 +80,9 @@ class _HRChatState extends State<HRChat> {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              Text(
-                                list[index].message,
+                              Text( decrypt(list[index].message, encryptionKey),
                                 style: TextStyle(color: Colors.white),
+
                               ),
                               Text(
                                 list[index].time.substring(0, 16),

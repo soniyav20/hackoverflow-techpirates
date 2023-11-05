@@ -4,6 +4,8 @@ import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
+import '../ciphers/encryptor.dart';
+
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
 
@@ -80,7 +82,7 @@ class _ChatState extends State<Chat> {
                           child: Column(
                             children: [
                               Text(
-                                list[index].message,
+                              decrypt(list[index].message, encryptionKey),
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(

@@ -21,17 +21,17 @@ class _UploadDocumentsPageState extends State<UploadDocumentsPage> {
   Future _imgFromGallery(int containerIndex) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
+    setState(() async {
       if (pickedFile != null) {
         if (containerIndex == 1) {
           _image1 = File(pickedFile.path);
-          uploadFile(_image1, 1);
+          await uploadFile(_image1, 1);
         } else if (containerIndex == 2) {
           _image2 = File(pickedFile.path);
-          uploadFile(_image2, 2);
+          await uploadFile(_image2, 2);
         } else if (containerIndex == 3) {
           _image3 = File(pickedFile.path);
-          uploadFile(_image3, 3);
+          await uploadFile(_image3, 3);
         }
       } else {
         print('No image selected.');

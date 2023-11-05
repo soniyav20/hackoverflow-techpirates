@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:project_inc/models/serializers.dart';
 
 part 'messages.g.dart';

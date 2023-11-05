@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
+import 'package:project_inc/views/change.dart';
 import 'package:project_inc/views/chat_page.dart';
 import 'package:project_inc/views/home_page.dart';
 import 'package:provider/provider.dart';
 
+import '../../ciphers/encryptor.dart';
 import '../../models/employee.dart';
 import 'emp_upload_details_page.dart';
 
@@ -21,7 +23,7 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
   ServiceImp imp = ServiceImp();
   TextEditingController idController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -99,7 +101,7 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
       // Populate the text fields with the employee details
       idController.text = employee!.id;
       nameController.text = employee.name;
-      passwordController.text = employee.password;
+      // passwordController.text = employee.password;
       emailController.text = employee.mail ?? '';
       phoneController.text = employee.phoneno;
       genderController.text = employee.gender ?? '';
@@ -107,7 +109,7 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
       fatherNameController.text = employee.fathername ?? '';
       motherNameController.text = employee.mothername ?? '';
       dobController.text = employee.dob?.toString() ?? '';
-      adharController.text = employee.adhar ?? '';
+      adharController.text =  decrypt(employee.adhar ?? '', encryptionKey);
       emergencyController.text = employee.contacts?.phoneno ?? '';
       hrIdController.text = employee.hrid ?? '';
 
@@ -142,6 +144,17 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
               icon: Icon(
                 Icons.exit_to_app,
                 color: Colors.white,
+              )),
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => ChangePasswordEmp()));
+              },
+              icon: Icon(
+                Icons.published_with_changes_rounded,
+                color: Colors.white,
               ))
         ],
       ),
@@ -157,10 +170,10 @@ class _EmployeeDetailsPageState extends State<EmployeeDetailsPage> {
             controller: nameController,
             decoration: InputDecoration(labelText: 'Name'),
           ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-          ),
+          // TextField(
+          //   controller: passwordController,
+          //   decoration: InputDecoration(labelText: 'Password'),
+          // ),
           TextField(
             controller: emailController,
             decoration: InputDecoration(labelText: 'Email'),

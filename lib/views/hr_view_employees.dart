@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/add_emp.dart';
+import 'package:project_inc/views/change_password.dart';
 import 'package:project_inc/views/employees/emp_details_hr.dart';
 import 'package:project_inc/views/home_page.dart';
 import 'package:project_inc/views/hr_chat.dart';
@@ -58,6 +59,17 @@ class _HRViewEmployeeState extends State<HRViewEmployee> {
                 },
                 icon: Icon(
                   Icons.exit_to_app,
+                  color: Colors.white,
+                )),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => ChangePassword()));
+                },
+                icon: Icon(
+                  Icons.published_with_changes_rounded,
                   color: Colors.white,
                 ))
           ],
