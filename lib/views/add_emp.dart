@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 
-class AddHrs extends StatefulWidget {
+class AddEmp extends StatefulWidget {
   @override
-  _AddHrsState createState() => _AddHrsState();
+  _AddEmpState createState() => _AddEmpState();
 }
 
-class _AddHrsState extends State<AddHrs> {
+class _AddEmpState extends State<AddEmp> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -14,7 +14,7 @@ class _AddHrsState extends State<AddHrs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add HRs'),
+        title: Text('Add Emp'),
         backgroundColor: Color.fromRGBO(53, 85, 235, 1),
       ),
       body: Center(
@@ -51,7 +51,7 @@ class _AddHrsState extends State<AddHrs> {
               ElevatedButton(
                 onPressed: () async {
                   ServiceImp imp = new ServiceImp();
-                  String id = await imp.addHR(
+                  String id = await imp.addEmp(
                       passwordController.text, nameController.text);
 
                   // Show an alert dialog when the button is clicked
@@ -59,7 +59,7 @@ class _AddHrsState extends State<AddHrs> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('HR information'),
+                        title: Text('Emp information'),
                         content: Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,7 @@ class _AddHrsState extends State<AddHrs> {
                     },
                   );
                 },
-                child: Text('Add HR'),
+                child: Text('Add Emp'),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/view_model/changes.dart';
+import 'package:project_inc/views/add_emp.dart';
 import 'package:project_inc/views/employees/emp_details_hr.dart';
 import 'package:project_inc/views/home_page.dart';
 import 'package:project_inc/views/hr_chat.dart';
@@ -105,6 +106,18 @@ class _HRViewEmployeeState extends State<HRViewEmployee> {
                 },
               ),
             ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(53, 85, 235, 1),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddEmp(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

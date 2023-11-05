@@ -296,7 +296,7 @@ class ServiceImp implements Services {
             .collection('messages')
             .where('hrid', isEqualTo: hrid.toString())
             .where('empid', isEqualTo: empid.toString())
-            // .orderBy('time', descending: true)
+            .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;

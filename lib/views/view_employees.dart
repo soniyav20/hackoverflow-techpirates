@@ -1,7 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
-import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/view_model/changes.dart';
+import 'package:project_inc/views/employees/emp_details_hr.dart';
 import 'package:provider/provider.dart';
 
 class ViewEmployee extends StatefulWidget {
@@ -13,8 +13,6 @@ class ViewEmployee extends StatefulWidget {
 
 class _ViewEmployeeState extends State<ViewEmployee> {
   Future<void> method() async {
-    hrid = '1111';
-    empid = '1111';
     await context.read<MyModel>().getTotalEmplist();
     setState(() {});
   }
@@ -50,13 +48,25 @@ class _ViewEmployeeState extends State<ViewEmployee> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Text(list[index].name),
-                          Text(list[index].id),
-                          Text(list[index].phoneno)
-                        ],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployeeDetailsPageHR(
+                              empId: list[index].id,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Text(list[index].name),
+                            Text(list[index].id),
+                            Text(list[index].phoneno)
+                          ],
+                        ),
                       ),
                     ),
                   );
