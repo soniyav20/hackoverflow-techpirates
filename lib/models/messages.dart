@@ -22,5 +22,5 @@ abstract class Messages implements Built<Messages, MessagesBuilder> {
   String get empid;
   String get message;
   bool get isempSender;
-  // DateTime? get time;
+  String? get time;
 }
